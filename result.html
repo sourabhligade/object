@@ -1,17 +1,92 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Result</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dominant Color Result</title>
+    <style>
+        /* Center the container horizontally */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* Container styles */
+        .container {
+            display: flex;
+            justify-content: space-between; /* Spread the items evenly */
+            align-items: center;
+            width: 80%; /* Adjust the width as needed */
+        }
+
+        /* Style for dominant color section */
+        .dominant-color {
+            flex: 1; /* Take up remaining space */
+            text-align: left;
+        }
+
+        /* Define styles for the color container */
+        .color-container {
+            margin-bottom: 20px; /* Add margin bottom for spacing */
+        }
+
+        /* Define styles for the color block */
+        .color-block {
+            width: 100px;
+            height: 100px;
+            border: 2px solid black; /* Black border */
+            box-sizing: border-box; /* Include border in dimensions */
+        }
+
+        /* Style for YOLO object detection section */
+        .yolo-detection {
+            flex: 1; /* Take up remaining space */
+            text-align: right;
+        }
+
+        /* Define styles for YOLO result image */
+        .yolo-result img {
+            max-width: 100%; /* Ensure image does not overflow container */
+        }
+
+        /* Define styles for YOLO detection list */
+        .yolo-result ul {
+            list-style-type: none; /* Remove default list style */
+            padding: 0; /* Remove default padding */
+        }
+    </style>
 </head>
 <body>
-    <h1>Dominant Color: {{ color_name }}</h1>
-    <p>RGB: {{ dominant_color }}</p>
-    <h1>YOLO Object Detection</h1>
-    <img src="{{ result_image_path }}" alt="YOLO Detection Result">
-    <ul>
-        {% for detection in detections %}
-        <li>Class: {{ detection.label }}, Confidence: {{ detection.confidence }}, Box: {{ detection.box }}</li>
-        {% endfor %}
-    </ul>
+    <div class="container">
+        <!-- Dominant color section -->
+        <div class="dominant-color">
+            <h1>Dominant Color Identification</h1>
+
+            <h2>Dominant Color:</h2>
+            <div class="color-container">
+                <!-- Use the defined styles for the color block -->
+                <div class="color-block" style="background-color: rgb({{ dominant_color.0 }}, {{ dominant_color.1 }}, {{ dominant_color.2 }});"></div>
+            </div>
+            <!-- Display the RGB value -->
+            <p>Color : {{ color_name }}</p>
+            <p>RGB Value: {{ dominant_color }}</p>
+        </div>
+
+        <!-- YOLO object detection section -->
+        <div class="yolo-detection">
+            <h1>YOLO Object Detection</h1>
+            <div class="yolo-result">
+                <img src="{{ result_image_url }}" alt="YOLO Detection Result">
+                <ul>
+                    {% for detection in detections %}
+                    <li>Class: {{ detection.label }}, Confidence: {{ detection.confidence }}, Box: {{ detection.box }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
