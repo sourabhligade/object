@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Result</title>
+</head>
+<body>
+    <h1>Dominant Color: {{ color_name }}</h1>
+    <p>RGB: {{ dominant_color }}</p>
+    <h1>YOLO Object Detection</h1>
+    <img src="{{ result_image_path }}" alt="YOLO Detection Result">
+    <ul>
+        {% for detection in detections %}
+        <li>Class: {{ detection.label }}, Confidence: {{ detection.confidence }}, Box: {{ detection.box }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
