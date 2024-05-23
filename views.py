@@ -105,14 +105,16 @@ def upload_image(request):
             # Perform YOLO object detection
             result_image_path, detection_results = yolo_object_detection(image_path)
             
+            # Construct the result image URL
+            result_image_url = result_image_path.replace(settings.MEDIA_ROOT, settings.MEDIA_URL)
+
             return render(request, 'colordetection/result.html', {
                 'dominant_color': dominant_color_rgb,
                 'color_name': nearest_color_name,
-                'result_image_path': result_image_path,
+                'result_image_url': result_image_url,
                 'detections': detection_results
             })
     else:
         form = ImageUploadForm()
     
     return render(request, 'colordetection/upload.html', {'form': form})
-
